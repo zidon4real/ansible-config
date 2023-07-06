@@ -1,44 +1,43 @@
 pipeline {
     agent any
-  
+
+    environment {
+        ANSIBLE_CONFIG = "${WORKSPACE}/deploy/ansible.cfg"
+    }
+
+    parameters {
+        string(name: 'inventory', defaultValue: 'dev', description: 'This is the inventory file for the environment to deploy configuration')
+    }
+
     stages {
-        stage('Initial cleanup') {
+        stage("Initial cleanup") {
             steps {
                 deleteDir()
             }
         }
-        
-        stage('Build') {
+
+        stage('Checkout SCM') {
             steps {
-                echo 'Building Stage'
-                // Add your build steps here
+                git branch: 'feature/jenkinspipeline-stages', url: 'https://github.com/zidon4real/ansible-config.git'
             }
         }
 
-        stage('Test') {
+        stage('Prepare Ansible For Execution') {
             steps {
-                echo 'Testing Stage'
-                // Add your test steps here
+                sh 'echo ${WORKSPACE}'
+                sh "sed -i '3 a roles_path=${WORKSPACE}/roles' ${WORKSPACE}/deploy/ansible.cfg"
             }
         }
 
-        stage('Package') {
+        stage('Run Ansible playbook') {
             steps {
-                echo 'Packaging App'
-                // Add your packaging steps here
+               ansiblePlaybook become: true, credentialsId: 'Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/dev', playbook: 'playbooks/site.yml'
             }
         }
-    
-        stage('Deploy') {
+
+        stage('Clean Workspace after build') {
             steps {
-                echo 'Deploying to Dev'
-                // Add your deployment steps here
-            }
-        }
-        
-        stage('Cleanup') {
-            steps {
-                cleanWs()
+                cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenUnstable: true, deleteDirs: true)
             }
         }
     }
