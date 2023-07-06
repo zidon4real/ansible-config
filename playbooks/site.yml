@@ -1,11 +1,11 @@
 ---
-- name: database assignment
-  hosts: db
+- hosts: db
+  name: database assignment
   tasks:
     - import_playbook: ../static-assignments/database.yml
 
-- name: nginx assignment
-  hosts: nginx
+- hosts: nginx
+  name: nginx assignment
   tasks:
     - import_playbook: ../static-assignments/nginx.yml
 
@@ -14,8 +14,8 @@
 #   tasks:
 #     - import_playbook: ../static-assignments/artifactory.yml
 
-- name: sonar assignment
-  hosts: sonar
+- hosts: sonar
+  name: sonar assignment
   tasks:
     - import_playbook: ../static-assignments/sonar.yml
 
