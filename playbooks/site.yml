@@ -1,9 +1,9 @@
 ---
 - name: database assignment
-  hosts: db  
+  hosts: db
   ansible.builtin.import_playbook: ../static-assignments/database.yml
 
-- name: nginx assignment 
+- name: nginx assignment
   hosts: nginx
   ansible.builtin.import_playbook: ../static-assignments/nginx.yml
 
@@ -11,8 +11,8 @@
 #   name: artifactory assignment
 #   ansible.builtin.import_playbook: ../static-assignments/artifactory.yml
 
-- hosts: sonar
-  name: sonar assignment
+- name: sonar assignment
+  hosts: sonar
   ansible.builtin.import_playbook: ../static-assignments/sonar.yml
 
 # - hosts: todo
