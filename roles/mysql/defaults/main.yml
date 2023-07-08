@@ -113,10 +113,10 @@ mysql_databases:
     replicate: 1
 
 # mysql_databases:
-#  - name: homestead
-#   collation: utf8_general_ci
-#   encoding: utf8
-#   replicate: 1
+# - name: homestead
+#  collation: utf8_general_ci
+#  encoding: utf8
+#  replicate: 1
 
 # Users.
 mysql_users:
