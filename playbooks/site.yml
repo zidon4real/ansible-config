@@ -1,4 +1,3 @@
----
 - name: Database Assignment
   hosts: db
   gather_facts: no
