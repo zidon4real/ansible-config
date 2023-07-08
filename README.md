@@ -37,7 +37,7 @@ source ~/.bash_profile
 #### Ansible dependencies to install
 =====================================
 * For Mysql Database
-- ansible-galaxy collection install community.mysql
+- ansible-galaxy collection install community.mysql 
 
 * For Postgresql Database
 - ansible-galaxy collection install community.postgresql
