@@ -1,18 +1,18 @@
 ---
-- hosts: all
+- name: Database Assignment
+  hosts: db
+  gather_facts: no
+  become: yes
+  ansible.builtin.import_playbook: ../static-assignments/database.yml
 
-- name: Include dynamic variables
-  import_playbook: ../static-assignments/common.yml
-  include: ../dynamic-assignments/env-vars.yml
-  tags:
-    - always
+- name: Nginx Assignment
+  hosts: nginx
+  gather_facts: no
+  become: yes
+  ansible.builtin.import_playbook: ../static-assignments/nginx.yml
 
-- name: Delete wireshark installation
-  import_playbook: ../static-assignments/common-del.yml
-
-- name: webserver
-  import_playbook: ../static-assignments/webservers.yml
-
-- name: Loadbalancers assignment
-  import_playbook: ../static-assignments/loadbalancers.yml
-  when: load_balancer_is_required
+- name: Sonar Assignment
+  hosts: sonar
+  gather_facts: no
+  become: yes
+  ansible.builtin.import_playbook: ../static-assignments/sonar.yml
