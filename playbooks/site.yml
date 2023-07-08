@@ -1,25 +1,18 @@
 ---
-- hosts: db
-  name: database assignment
-  tasks:
-    - import_playbook: ../static-assignments/database.yml
+- hosts: all
 
-- hosts: nginx
-  name: nginx assignment
-  tasks:
-    - import_playbook: ../static-assignments/nginx.yml
+- name: Include dynamic variables
+  import_playbook: ../static-assignments/common.yml
+  include: ../dynamic-assignments/env-vars.yml
+  tags:
+    - always
 
-# - hosts: artifactory
-#   name: artifactory assignment
-#   tasks:
-#     - import_playbook: ../static-assignments/artifactory.yml
+- name: Delete wireshark installation
+  import_playbook: ../static-assignments/common-del.yml
 
-- hosts: sonar
-  name: sonar assignment
-  tasks:
-    - import_playbook: ../static-assignments/sonar.yml
+- name: webserver
+  import_playbook: ../static-assignments/webservers.yml
 
-# - hosts: todo
-#   name: Deploy the todo application
-#   tasks:
-#     - import_playbook: ../static-assignments/deployment.yml
+- name: Loadbalancers assignment
+  import_playbook: ../static-assignments/loadbalancers.yml
+  when: load_balancer_is_required
