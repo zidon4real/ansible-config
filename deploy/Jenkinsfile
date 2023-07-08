@@ -1,4 +1,4 @@
-pipeline {
+   pipeline {
     agent any
 
     environment {
@@ -34,11 +34,7 @@ pipeline {
                ansiblePlaybook become: true, credentialsId: 'Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/dev', playbook: 'playbooks/site.yml'
             }
         }
-
-        stage('Clean Workspace after build') {
-            steps {
-                cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenUnstable: true, deleteDirs: true)
-            }
-        }
+      }
+    }
     }
 }
