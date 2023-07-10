@@ -4,15 +4,6 @@
   hosts: todo
 
   tasks:
-    - name: Add RHEL 8 repository
-      ansible.builtin.yum_repository:
-        name: rhel-8-repo
-        description: RHEL 8 Repository
-        baseurl: http://your.repository.url/rhel8/
-        enabled: yes
-        gpgcheck: no
- 
-
     - name: install remi and rhel repo
       ansible.builtin.yum:
         name: 
