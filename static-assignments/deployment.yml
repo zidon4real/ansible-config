@@ -4,12 +4,21 @@
   hosts: todo
 
   tasks:
+    - name: Add RHEL 8 repository
+      ansible.builtin.yum_repository:
+        name: rhel-8-repo
+        description: RHEL 8 Repository
+        baseurl: http://your.repository.url/rhel8/
+        enabled: yes
+        gpgcheck: no
+ 
+
     - name: install remi and rhel repo
       ansible.builtin.yum:
         name: 
-         https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+          - https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
           - dnf-utils
-          - http://rpms.remirepo.net/enterprise/remi-release-9.rpm
+          - http://rpms.remirepo.net/enterprise/remi-release-8.rpm
         disable_gpg_check: yes
 
     
